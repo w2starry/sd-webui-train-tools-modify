@@ -143,8 +143,8 @@ def new_ui():
                         train_learning_rate = gr.Textbox(value="0.0001", label="Learning rate(Multi-select e.g. 0.0001,0.0002)", elem_id="train_learning_rate", interactive = True)
                         sd_script_args = gr.Textbox(value="", label="Append or override the sd_script args. (e.g. `--lr_scheduler=\"constant_with_warmup\" --max_grad_norm=0.0`)", elem_id="sd_script_args", interactive = True)
                     with gr.Column():
-                        train_net_dim = gr.Number(value=128, label="Net dim (128 ~ 144MB)", elem_id="train_net_dim", interactive = True)
-                        train_alpha = gr.Number(value=64, label="Alpha (default is half of Net dim)", elem_id="train_alpha", interactive = True)
+                        train_net_dim = gr.Slider(8, 128, step=1, value=64, label="Net dim (max:144MB)", elem_id="train_net_dim", interactive = True)
+                        train_alpha = gr.Slider(8, 128, step=1, value=32, label="Alpha (default is half of Net dim)", elem_id="train_alpha", interactive = True)
                         train_optimizer_type = gr.Dropdown(label="Optimizer type(Multi-select)",value=["Lion"], choices=["Adam", "AdamW", "AdamW8bit", "Lion", "SGDNesterov", "SGDNesterov8bit", "DAdaptation", "AdaFactor"], multiselect = True, interactive = True, elem_id="train_optimizer_type")
                         train_mixed_precision = gr.Dropdown(label="Mixed precision (If your graphics card supports bf16 better)",value="fp16", choices=["fp16", "bf16"], interactive = True, elem_id="train_mixed_precision")
                 with gr.Row():
