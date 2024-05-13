@@ -260,6 +260,7 @@ def new_ui():
                 train_xformers,
                 train_base_on_sd_v2,
                 use_sdxl,
+                train_scheduler,
             ]
         def preview_config_inputs():
             return [
