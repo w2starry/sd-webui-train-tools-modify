@@ -43,7 +43,7 @@ default_config = [
     {"train_xformers": True},
     {"train_base_on_sd_v2": False},
     {"use_sdxl": False},
-    {"train_scheduler": "cosine"},
+    {"train_scheduler": ["cosine"]},
     {"train_cosine_restarts": 1},
     # preview
     {"preview_include_sub_img": False},
