@@ -40,7 +40,7 @@ def on_train_begin_click(id: str, project: str, version: str,
         train_base_on_sd_v2: bool,
         use_sdxl: bool, # use sdxl
         train_scheduler: str,
-        train_cosine_restarts: int,
+        # train_cosine_restarts: int,
         # preview view config
         preview_include_sub_img: bool,
         # txt2txt
@@ -74,7 +74,7 @@ def on_train_begin_click(id: str, project: str, version: str,
         "train_base_on_sd_v2": train_base_on_sd_v2,
         "use_sdxl": use_sdxl,
         "train_scheduler": train_scheduler,
-        "train_cosine_restarts": int(train_cosine_restarts)，
+        # "train_cosine_restarts": int(train_cosine_restarts)，
     })
     save_preview_config(project, version, {
         # preview view config
@@ -130,7 +130,7 @@ def on_train_begin_click(id: str, project: str, version: str,
             cfg.use_sdxl = use_sdxl
             cfg.ext_sd_script_args = sd_script_args
             cfg.scheduler = train_scheduler
-            cfg.cosine_restarts = int(train_cosine_restarts)
+            # cfg.cosine_restarts = int(train_cosine_restarts)
             # check if reg path exist
             if os.path.exists(os.path.join(processed_path, "..", "reg")):
                 cfg.reg_img_folder = os.path.abspath(os.path.join(processed_path, "..", "reg"))
