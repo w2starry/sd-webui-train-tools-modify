@@ -141,7 +141,7 @@ def new_ui():
                         train_batch_size = gr.Number(value=1, label="Batch size", elem_id="train_batch_size", interactive = True)
                         train_num_epochs = gr.Number(value=40, label="Number of epochs", elem_id="train_num_epochs", interactive = True)
                         train_learning_rate = gr.Textbox(value="0.0001", label="Learning rate(Multi-select e.g. 0.0001,0.0002)", elem_id="train_learning_rate", interactive = True)
-                        train_scheduler = gr.Dropdown(["linear", "cosine", "cosine_with_restarts"], value="cosine", label="lr_scheduler", elem_id="train_scheduler", interactive=True)
+                        train_scheduler = gr.Dropdown(choices=["linear", "cosine", "cosine_with_restarts"], value="cosine", label="lr_scheduler", multiselect = True, elem_id="train_scheduler", interactive=True)
                         train_cosine_restarts = gr.Number(value=1, label="the number of times lr restarts (Optional,For Cosine only)", elem_id="train_cosine_restarts", interactive=True)
                         sd_script_args = gr.Textbox(value="", label="Append or override the sd_script args. (e.g. `--lr_scheduler=\"constant_with_warmup\" --max_grad_norm=0.0`)", elem_id="sd_script_args", interactive = True)
                     with gr.Column():
