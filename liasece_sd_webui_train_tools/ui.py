@@ -141,6 +141,10 @@ def new_ui():
                         train_batch_size = gr.Number(value=1, label="Batch size", elem_id="train_batch_size", interactive = True)
                         train_num_epochs = gr.Number(value=40, label="Number of epochs", elem_id="train_num_epochs", interactive = True)
                         train_learning_rate = gr.Textbox(value="0.0001", label="Learning rate(Multi-select e.g. 0.0001,0.0002)", elem_id="train_learning_rate", interactive = True)
+
+                        train_scheduler = gr.Dropdown(["linear", "cosine", "cosine_with_restarts"], value="cosine", label="lr_scheduler", interactive=True)
+                        train_cosine_restarts = gr.Textbox(value=None, label="the number of times lr restarts", placeholder="(Optional)For Cosine with restart only", lines=1, max_lines=1, interactive=True)
+
                         sd_script_args = gr.Textbox(value="", label="Append or override the sd_script args. (e.g. `--lr_scheduler=\"constant_with_warmup\" --max_grad_norm=0.0`)", elem_id="sd_script_args", interactive = True)
                     with gr.Column():
                         train_net_dim = gr.Slider(8, 128, step=1, value=64, label="Net dim (max:144MB)", elem_id="train_net_dim", interactive = True)
@@ -258,6 +262,8 @@ def new_ui():
                 train_xformers,
                 train_base_on_sd_v2,
                 use_sdxl,
+                train_scheduler,
+                train_cosine_restarts,
             ]
         def preview_config_inputs():
             return [
