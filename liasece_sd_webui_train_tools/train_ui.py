@@ -40,7 +40,7 @@ def on_train_begin_click(id: str, project: str, version: str,
         train_base_on_sd_v2: bool,
         use_sdxl: bool, # use sdxl
         train_scheduler: str,
-        train_cosine_restarts: str,
+        train_cosine_restarts: int,
         # preview view config
         preview_include_sub_img: bool,
         # txt2txt
