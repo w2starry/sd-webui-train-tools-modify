@@ -43,8 +43,8 @@ default_config = [
     {"train_xformers": True},
     {"train_base_on_sd_v2": False},
     {"use_sdxl": False},
-    {"train_scheduler": ["cosine"]},
-    {"train_cosine_restarts": 1},
+    {"train_scheduler": "cosine"},
+    # {"train_cosine_restarts": 1},
     # preview
     {"preview_include_sub_img": False},
     {"preview_txt2img_prompt": "best quality,Amazing,finely detail,extremely detailed CG unity 8k wallpaper"},
