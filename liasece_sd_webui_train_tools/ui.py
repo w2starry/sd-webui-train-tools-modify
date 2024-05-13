@@ -261,6 +261,7 @@ def new_ui():
                 train_base_on_sd_v2,
                 use_sdxl,
                 train_scheduler,
+                train_cosine_restarts,
             ]
         def preview_config_inputs():
             return [
