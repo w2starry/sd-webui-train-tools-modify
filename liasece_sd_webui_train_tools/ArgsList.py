@@ -62,7 +62,7 @@ class ArgStore:
         # scheduler args
         # list of schedulers: linear, cosine, cosine_with_restarts, polynomial, constant, constant_with_warmup
         self.scheduler: str = "cosine"
-        self.cosine_restarts: Union[int, None] = 1  # OPTIONAL, represents the number of times it restarts.
+        self.cosine_restarts: int = 1  # OPTIONAL, represents the number of times it restarts.
         # Only matters if you are using cosine_with_restarts
         self.scheduler_power: Union[float, None] = 1  # OPTIONAL, represents the power of the polynomial.
         # Only matters if you are using polynomial
