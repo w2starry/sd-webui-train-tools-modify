@@ -46,7 +46,7 @@ default_config = [
     {"train_scheduler": "cosine"},
     {"train_cosine_restarts": 1},
     {"train_unet_lr": 0.0001},
-    {"train_text_encoder_lr":0.00005},
+    {"train_text_encoder_lr": 0.00005},
     # preview
     {"preview_include_sub_img": False},
     {"preview_txt2img_prompt": "best quality,Amazing,finely detail,extremely detailed CG unity 8k wallpaper"},
