@@ -41,8 +41,8 @@ def on_train_begin_click(id: str, project: str, version: str,
         use_sdxl: bool, # use sdxl
         train_scheduler: str,
         train_cosine_restarts: int,
-        train_unet_lr: float,
-        train_text_encoder_lr: float,
+        train_unet_lr: str,
+        train_text_encoder_lr: str,
         # preview view config
         preview_include_sub_img: bool,
         # txt2txt
@@ -58,6 +58,17 @@ def on_train_begin_click(id: str, project: str, version: str,
         preview_seed: str, # like -1,-1
         preview_lora_multiplier: str, # like 0.6,0.7,0.8,0.9
     ):
+
+    if train_unet_lr == "":
+        train_unet_lr = None
+    else:
+        train_unet_lr = float(train_unet_lr)
+
+    if train_text_encoder_lr == "":
+        train_text_encoder_lr = None
+    else:
+        train_text_encoder_lr = float(train_text_encoder_lr)
+        
     save_train_config(project, version, {
         # train config
         "train_base_model": train_base_model,
@@ -77,8 +88,8 @@ def on_train_begin_click(id: str, project: str, version: str,
         "use_sdxl": use_sdxl,
         "train_scheduler": train_scheduler,
         "train_cosine_restarts": int(train_cosine_restarts),
-        "train_unet_lr": float(train_unet_lr),
-        "train_text_encoder_lr": float(train_text_encoder_lr),
+        "train_unet_lr": train_unet_lr,
+        "train_text_encoder_lr": train_text_encoder_lr,
     })
     save_preview_config(project, version, {
         # preview view config
@@ -106,46 +117,49 @@ def on_train_begin_click(id: str, project: str, version: str,
     processed_path = get_project_version_dataset_processed_path(project, version)
     os.makedirs(processed_path, exist_ok=True)
 
-    train_learning_rate_list = np.fromstring( train_learning_rate, dtype=np.float64, sep=',' )
-    for train_learning_rate_item in train_learning_rate_list:
-        for train_optimizer_type_item in train_optimizer_type:
-            if train_base_model_name == "":
-                printD("unknown base model", train_base_model_name)
-                continue
-            train_name = (train_base_model_name+"-bs-"+str(int(train_batch_size))+"-ep-"+str(int(train_num_epochs))+"-op-"+str(train_optimizer_type_item)+"-lr-"+str(float(train_learning_rate_item))+"-net-"+str(int(train_net_dim))+"-ap-"+str(int(train_alpha))).replace(" ", "").replace(".", "_")
-            checkpoint_save_path = get_project_version_trains_checkpoint_path(project, version, train_name)
-            os.makedirs(checkpoint_save_path, exist_ok=True)
-            cfg = ArgsList.ArgStore()
-            cfg.img_folder = os.path.abspath(processed_path)
-            cfg.output_folder = os.path.abspath(checkpoint_save_path)
-            cfg.change_output_name = project+r"-"+version
-            cfg.batch_size = int(train_batch_size)
-            cfg.num_epochs = int(train_num_epochs)
-            cfg.save_every_n_epochs = int(train_save_every_n_epochs)
-            cfg.base_model = train_base_model_path
-            cfg.optimizer_type = train_optimizer_type_item
-            cfg.learning_rate = float(train_learning_rate_item)
-            cfg.unet_lr = float(train_unet_lr)
-            cfg.text_encoder_lr = float(train_text_encoder_lr)
-            cfg.net_dim = int(train_net_dim)
-            cfg.alpha = int(train_alpha)
-            cfg.clip_skip = int(train_clip_skip)
-            cfg.mixed_precision = train_mixed_precision
-            cfg.xformers = train_xformers
-            cfg.v2 = train_base_on_sd_v2
-            cfg.use_sdxl = use_sdxl
-            cfg.ext_sd_script_args = sd_script_args
-            cfg.scheduler = train_scheduler
-            cfg.cosine_restarts = int(train_cosine_restarts)
-            # check if reg path exist
-            if os.path.exists(os.path.join(processed_path, "..", "reg")):
-                cfg.reg_img_folder = os.path.abspath(os.path.join(processed_path, "..", "reg"))
-            printD("on_train_begin_click", cfg.__dict__)
-            try:
-                train.train(cfg)
-            except Exception as e:
-                printD("train.train error", e)
-                print(traceback.format_exc(), file=sys.stderr)
+    for train_optimizer_type_item in train_optimizer_type:
+        if train_base_model_name == "":
+            printD("unknown base model", train_base_model_name)
+            continue
+        train_name = (train_base_model_name + "-bs-" + str(int(train_batch_size)) + "-ep-" + str(
+            int(train_num_epochs)) + "-op-" + str(train_optimizer_type_item) + "-lr-" + str(
+            float(train_learning_rate)) + "-net-" + str(int(train_net_dim)) + "-ap-" + str(
+            int(train_alpha))).replace(" ", "").replace(".", "_")
+        checkpoint_save_path = get_project_version_trains_checkpoint_path(project, version, train_name)
+        os.makedirs(checkpoint_save_path, exist_ok=True)
+        cfg = ArgsList.ArgStore()  # ArgsList中定义的类名，可能涉及后端train_config的修改，用于真正训练中的参数配置
+        cfg.img_folder = os.path.abspath(processed_path)
+        cfg.output_folder = os.path.abspath(checkpoint_save_path)
+        cfg.change_output_name = project + r"-" + version
+        cfg.batch_size = int(train_batch_size)
+        cfg.num_epochs = int(train_num_epochs)
+        cfg.save_every_n_epochs = int(train_save_every_n_epochs)
+        cfg.base_model = train_base_model_path
+        cfg.optimizer_type = train_optimizer_type_item
+        cfg.learning_rate = float(train_learning_rate)
+        cfg.unet_lr = train_unet_lr
+        cfg.text_encoder_lr = train_text_encoder_lr
+        cfg.net_dim = int(train_net_dim)
+        cfg.alpha = int(train_alpha)
+        cfg.clip_skip = int(train_clip_skip)
+        cfg.mixed_precision = train_mixed_precision
+        cfg.xformers = train_xformers
+        cfg.v2 = train_base_on_sd_v2
+        cfg.use_sdxl = use_sdxl
+        cfg.ext_sd_script_args = sd_script_args
+        cfg.scheduler = train_scheduler
+        cfg.cosine_restarts = int(train_cosine_restarts)
+        # check if reg path exist
+        if os.path.exists(os.path.join(processed_path, "..", "reg")):
+            cfg.reg_img_folder = os.path.abspath(os.path.join(processed_path, "..", "reg"))
+        printD("on_train_begin_click", cfg.__dict__)
+        try:
+            train.train(cfg)  # 调用liasece下的train.py中的train函数-->然后再调用sd_scripts下的train_network，真正开始训练
+        except Exception as e:
+            printD("train.train error", e)
+            print(traceback.format_exc(), file=sys.stderr)
+
+    
     # generate preview
     if train_finish_generate_all_checkpoint_preview:
         return [None]+on_ui_preview_generate_all_preview_btn_click(id, project, version, train_name,
