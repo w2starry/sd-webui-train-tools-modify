@@ -58,7 +58,7 @@ def on_train_begin_click(id: str, project: str, version: str,
         preview_seed: str, # like -1,-1
         preview_lora_multiplier: str, # like 0.6,0.7,0.8,0.9
     ):
-
+    train_learning_rate = float(train_learning_rate)
     if train_unet_lr == "":
         train_unet_lr = None
     else:
@@ -77,7 +77,7 @@ def on_train_begin_click(id: str, project: str, version: str,
         "train_save_every_n_epochs": int(train_save_every_n_epochs),
         "train_finish_generate_all_checkpoint_preview": train_finish_generate_all_checkpoint_preview,
         "train_optimizer_type": train_optimizer_type,
-        "train_learning_rate": train_learning_rate,
+        "train_learning_rate": float(train_learning_rate),
         "sd_script_args": sd_script_args,
         "train_net_dim": int(train_net_dim),
         "train_alpha": int(train_alpha),
