@@ -160,6 +160,7 @@ def new_ui():
                         with gr.Row(elem_id=f"train_begin_btn_container"):
                             # UI: train button
                             train_begin_btn = gr.Button(value="Begin train", variant="primary", elem_id=f'begin_train_btn')
+                            train_stop_btn = gr.Button(value="Stop train", elem_id=f'stop_train_btn')
         with gr.Box(visible=False) as preview_box:
             # UI: train checkpoints
             with gr.Box():
@@ -374,6 +375,9 @@ def new_ui():
             ,
             outputs=[train_begin_btn]+trains_area_outputs()+[train_begin_log],
         )
+
+        train_stop_btn.click(_js="on_train_stop_click")
+
         # trains area  
         gr_trains_dropdown.change(
             fn=on_ui_change_project_version_trains_click,
