@@ -140,7 +140,7 @@ def new_ui():
                     with gr.Column():
                         train_batch_size = gr.Number(value=1, label="Batch size", elem_id="train_batch_size", interactive = True)
                         train_num_epochs = gr.Number(value=40, label="Number of epochs", elem_id="train_num_epochs", interactive = True)
-                        train_learning_rate = gr.Textbox(value="0.0001", label="Learning rate(Multi-select e.g. 0.0001,0.0002)", elem_id="train_learning_rate", interactive = True)
+                        train_learning_rate = gr.Textbox(value="0.0001", label="Learning rate(Single-select e.g. 0.0001)", elem_id="train_learning_rate", interactive = True)
                         train_unet_lr = gr.Textbox(label="U-Net learning rate", value=None, elem_id="train_unet_lr", placeholder="Optional", interactive=True)
                         train_text_encoder_lr = gr.Textbox(label="Text Encoder learning rate", value=None, elem_id="train_text_encoder_lr", placeholder="Optional", interactive=True)
                         train_scheduler = gr.Dropdown(choices=["linear", "cosine", "cosine_with_restarts"], value="cosine", label="lr_scheduler", elem_id="train_scheduler", interactive=True)
