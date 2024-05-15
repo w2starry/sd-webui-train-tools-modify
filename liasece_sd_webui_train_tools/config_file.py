@@ -45,6 +45,8 @@ default_config = [
     {"use_sdxl": False},
     {"train_scheduler": "cosine"},
     {"train_cosine_restarts": 1},
+    {"train_unet_lr": ""},
+    {"train_text_encoder_lr": ""},
     
     # preview
     {"preview_include_sub_img": False},
