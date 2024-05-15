@@ -34,6 +34,10 @@ function on_train_begin_click() {
     return res;
 }
 
+function on_train_stop_click() {
+    li_tt_showSubmitButtons("begin_train_btn", true); 
+}
+
 function on_ui_preview_generate_all_preview_btn_click() {
     li_tt_showSubmitButtons("preview_generate_all_preview_btn", false);
     var id = randomId();
