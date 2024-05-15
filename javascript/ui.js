@@ -35,6 +35,7 @@ function on_train_begin_click() {
 }
 
 function on_train_stop_click() {
+    var id = randomId();
     li_tt_showSubmitButtons("begin_train_btn", true); 
 }
 
