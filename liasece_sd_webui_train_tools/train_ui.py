@@ -41,6 +41,8 @@ def on_train_begin_click(id: str, project: str, version: str,
         use_sdxl: bool, # use sdxl
         train_scheduler: str,
         train_cosine_restarts: int,
+        train_unet_lr: float,
+        train_text_encoder_lr: float,
         # preview view config
         preview_include_sub_img: bool,
         # txt2txt
@@ -75,6 +77,8 @@ def on_train_begin_click(id: str, project: str, version: str,
         "use_sdxl": use_sdxl,
         "train_scheduler": train_scheduler,
         "train_cosine_restarts": int(train_cosine_restarts),
+        "train_unet_lr": float(train_unet_lr),
+        "train_text_encoder_lr": float(train_text_encoder_lr),
     })
     save_preview_config(project, version, {
         # preview view config
@@ -121,6 +125,8 @@ def on_train_begin_click(id: str, project: str, version: str,
             cfg.base_model = train_base_model_path
             cfg.optimizer_type = train_optimizer_type_item
             cfg.learning_rate = float(train_learning_rate_item)
+            cfg.unet_lr = float(train_unet_lr)
+            cfg.text_encoder_lr = float(train_text_encoder_lr)
             cfg.net_dim = int(train_net_dim)
             cfg.alpha = int(train_alpha)
             cfg.clip_skip = int(train_clip_skip)
