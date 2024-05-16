@@ -44,11 +44,10 @@ default_config = [
     {"train_base_on_sd_v2": False},
     {"use_sdxl": False},
     {"train_scheduler": "cosine"},
-    {"train_cosine_restarts": 1},
+    {"train_cosine_restarts": ""},
+    {"train_polynomial_power": ""}, 
     {"train_unet_lr": ""},
     {"train_text_encoder_lr": ""},
-    {"train_cosine_restarts": ""},
-    {"train_polynomial_power": ""},
     
     # preview
     {"preview_include_sub_img": False},
