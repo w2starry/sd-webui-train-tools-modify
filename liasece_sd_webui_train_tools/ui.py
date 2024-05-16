@@ -14,7 +14,7 @@ from liasece_sd_webui_train_tools.ui import *
 from liasece_sd_webui_train_tools.checkpoint_preview_ui import *
 from liasece_sd_webui_train_tools.dateset_ui import *
 from liasece_sd_webui_train_tools.train_ui import *
-from liasece_sd_webui_train_tools.class_command_executor import CommandExecutor
+import liasece_sd_webui_train_tools.sd_scripts.train_network as train_network
 
 # Setup command executor
 executor = CommandExecutor()
@@ -293,6 +293,9 @@ def new_ui():
             ]
         def all_config_inputs():
             return dataset_config_inputs() + train_config_inputs() + preview_config_inputs()
+
+        def on_train_stop_click():
+            train_network.train_judge = False
         # ====Footer====
         gr.Markdown(f"<center>version:{version} author: liasece </center>")
 
@@ -382,7 +385,7 @@ def new_ui():
             outputs=[train_begin_btn]+trains_area_outputs()+[train_begin_log],
         )
 
-        train_stop_btn.click(fn=executor.kill_command, _js="on_train_stop_click")
+        train_stop_btn.click(fn=on_train_stop_click, _js="on_train_stop_click")
 
         # trains area  
         gr_trains_dropdown.change(
