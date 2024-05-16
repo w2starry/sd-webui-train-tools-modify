@@ -376,7 +376,7 @@ def new_ui():
             outputs=[train_begin_btn]+trains_area_outputs()+[train_begin_log],
         )
 
-        train_stop_btn.click(_js="on_train_stop_click")
+        train_stop_btn.click(fn=None, _js="on_train_stop_click")
 
         # trains area  
         gr_trains_dropdown.change(
