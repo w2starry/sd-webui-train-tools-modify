@@ -147,9 +147,9 @@ def new_ui():
                         train_learning_rate = gr.Textbox(value="0.0001", label="Learning rate(Single-select e.g. 0.0001)", elem_id="train_learning_rate", interactive = True)
                         train_unet_lr = gr.Textbox(label="U-Net learning rate", value=None, elem_id="train_unet_lr", placeholder="Optional", interactive=True)
                         train_text_encoder_lr = gr.Textbox(label="Text Encoder learning rate", value=None, elem_id="train_text_encoder_lr", placeholder="Optional", interactive=True)
-                        train_scheduler = gr.Dropdown(choices=["linear", "cosine", "cosine_with_restarts"], value="cosine", label="lr_scheduler", elem_id="train_scheduler", interactive=True)
-                        train_cosine_restarts = gr.Textbox(value=None, label="lr restarts", placeholder="Optional,For Cosine with Restarts only", elem_id="train_cosine_restarts", interactive=True)
-                        train_polynomial_power = gr.Textbox(value=None, label="lr power", placeholder="Optional,For Polynomial only", elem_id="train_polynomial_power", interactive=True)
+                        train_scheduler = gr.Dropdown(choices=["linear", "cosine", "cosine_with_restarts", "polynomial", "constant"], value="cosine", label="lr_scheduler", elem_id="train_scheduler", interactive=True)
+                        train_cosine_restarts = gr.Textbox(value=None, label="lr restarts", placeholder="Optional, for cosine with restarts only", elem_id="train_cosine_restarts", interactive=True)
+                        train_polynomial_power = gr.Textbox(value=None, label="lr power", placeholder="Optional, for polynomial only", elem_id="train_polynomial_power", interactive=True)
                         sd_script_args = gr.Textbox(value="", label="Append or override the sd_script args. (e.g. `--lr_scheduler=\"constant_with_warmup\" --max_grad_norm=0.0`)", elem_id="sd_script_args", interactive = True)
                     with gr.Column():
                         train_net_dim = gr.Slider(8, 128, step=1, value=64, label="Net dim (max:144MB)", elem_id="train_net_dim", interactive = True)
