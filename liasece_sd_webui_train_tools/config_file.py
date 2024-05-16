@@ -47,6 +47,8 @@ default_config = [
     {"train_cosine_restarts": 1},
     {"train_unet_lr": ""},
     {"train_text_encoder_lr": ""},
+    {"train_cosine_restarts": ""},
+    {"train_polynomial_power": ""},
     
     # preview
     {"preview_include_sub_img": False},
