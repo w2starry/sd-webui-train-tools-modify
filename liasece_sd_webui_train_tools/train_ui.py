@@ -40,7 +40,8 @@ def on_train_begin_click(id: str, project: str, version: str,
         train_base_on_sd_v2: bool,
         use_sdxl: bool, # use sdxl
         train_scheduler: str,
-        train_cosine_restarts: int,
+        train_cosine_restarts: str,
+        train_polynomial_power: str,
         train_unet_lr: str,
         train_text_encoder_lr: str,
         # preview view config
@@ -68,6 +69,16 @@ def on_train_begin_click(id: str, project: str, version: str,
         train_text_encoder_lr = None
     else:
         train_text_encoder_lr = float(train_text_encoder_lr)
+
+    if train_cosine_restarts == "":
+        train_cosine_restarts = None
+    else:
+        train_cosine_restarts = int(train_cosine_restarts)
+
+    if train_polynomial_power == "":
+        train_polynomial_power = None
+    else:
+        train_polynomial_power = float(train_polynomial_power)
         
     save_train_config(project, version, {
         # train config
@@ -87,7 +98,8 @@ def on_train_begin_click(id: str, project: str, version: str,
         "train_base_on_sd_v2": train_base_on_sd_v2,
         "use_sdxl": use_sdxl,
         "train_scheduler": train_scheduler,
-        "train_cosine_restarts": int(train_cosine_restarts),
+        "train_cosine_restarts": train_cosine_restarts,
+        "train_polynomial_power": train_polynomial_power,
         "train_unet_lr": train_unet_lr,
         "train_text_encoder_lr": train_text_encoder_lr,
     })
@@ -148,7 +160,8 @@ def on_train_begin_click(id: str, project: str, version: str,
         cfg.use_sdxl = use_sdxl
         cfg.ext_sd_script_args = sd_script_args
         cfg.scheduler = train_scheduler
-        cfg.cosine_restarts = int(train_cosine_restarts)
+        cfg.cosine_restarts = train_cosine_restarts
+        cfg.scheduler_power = train_polynomial_power
         # check if reg path exist
         if os.path.exists(os.path.join(processed_path, "..", "reg")):
             cfg.reg_img_folder = os.path.abspath(os.path.join(processed_path, "..", "reg"))
