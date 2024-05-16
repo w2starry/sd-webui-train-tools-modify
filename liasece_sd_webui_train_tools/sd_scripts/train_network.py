@@ -47,6 +47,8 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+# 用于判断当前是否终止训练, False终止
+train_judge = True
 
 class NetworkTrainer:
     def __init__(self):
