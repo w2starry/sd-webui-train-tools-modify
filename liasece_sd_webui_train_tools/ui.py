@@ -14,6 +14,10 @@ from liasece_sd_webui_train_tools.ui import *
 from liasece_sd_webui_train_tools.checkpoint_preview_ui import *
 from liasece_sd_webui_train_tools.dateset_ui import *
 from liasece_sd_webui_train_tools.train_ui import *
+from liasece_sd_webui_train_tools.class_command_executor import CommandExecutor
+
+# Setup command executor
+executor = CommandExecutor()
 
 def new_ui():
     # ====UI====
