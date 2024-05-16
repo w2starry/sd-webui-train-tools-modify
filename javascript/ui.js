@@ -25,13 +25,7 @@ function on_ui_update_dataset_click() {
 
 function on_train_begin_click() {
     li_tt_showSubmitButtons("begin_train_btn", false);
-    var id = randomId();
-    requestProgress(id, gradioApp().getElementById("train_begin_btn_container"), null, function () {
-        li_tt_showSubmitButtons("begin_train_btn", true);
-    });
-    var res = create_submit_args(arguments);
-    res[0] = id;
-    return res;
+    
 }
 
 function on_train_stop_click() {
