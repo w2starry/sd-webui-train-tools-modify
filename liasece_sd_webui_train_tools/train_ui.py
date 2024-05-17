@@ -18,6 +18,7 @@ from liasece_sd_webui_train_tools.config_file import *
 from liasece_sd_webui_train_tools.checkpoint_preview_ui import *
 # from liasece_sd_webui_train_tools.dateset_ui import *
 # from liasece_sd_webui_train_tools.train_ui import *
+import liasece_sd_webui_train_tools.sd_scripts.train_network as train_network
 
 def model_path_for_train():
     return shared.cmd_opts.ckpt_dir if shared.cmd_opts.ckpt_dir is not None else sd_models.model_path
@@ -174,7 +175,7 @@ def on_train_begin_click(id: str, project: str, version: str,
 
     
     # generate preview
-    if train_finish_generate_all_checkpoint_preview:
+    if train_finish_generate_all_checkpoint_preview and train_network.train_judge:
         return [None]+on_ui_preview_generate_all_preview_btn_click(id, project, version, train_name,
             preview_include_sub_img,
             preview_txt2img_prompt,
