@@ -46,7 +46,8 @@ setup_logging()
 import logging
 
 logger = logging.getLogger(__name__)
-train_judge = True
+# train_judge = True
+current_train = Value("i", 1)
 
 
 class NetworkTrainer:
@@ -745,7 +746,7 @@ class NetworkTrainer:
 
         # training loop
         for epoch in range(num_train_epochs):
-            if train_judge:
+            if current_train.value == 1:
                 accelerator.print(f"\nepoch {epoch+1}/{num_train_epochs}")
                 current_epoch.value = epoch + 1
 
@@ -754,7 +755,7 @@ class NetworkTrainer:
                 accelerator.unwrap_model(network).on_epoch_start(text_encoder, unet)
 
                 for step, batch in enumerate(train_dataloader):
-                    if train_judge:
+                    if current_train.value == 1:
                         current_step.value = global_step
                         with accelerator.accumulate(network):
                             on_step_start(text_encoder, unet)
@@ -901,13 +902,13 @@ class NetworkTrainer:
                         if args.logging_dir is not None:
                             logs = self.generate_step_logs(args, current_loss, avr_loss, lr_scheduler, keys_scaled, mean_norm, maximum_norm)
                             accelerator.log(logs, step=global_step)
-                    if not train_judge:
+                    if current_train.value == 0:
                         break
 
                     if global_step >= args.max_train_steps:
                         break
 
-            if train_judge:
+            if current_train.value == 1:
 
                 if args.logging_dir is not None:
                     logs = {"loss/epoch": loss_recorder.moving_average}
@@ -931,7 +932,7 @@ class NetworkTrainer:
                             train_util.save_and_remove_state_on_epoch_end(args, accelerator, epoch + 1)
 
                 self.sample_images(accelerator, args, epoch + 1, global_step, accelerator.device, vae, tokenizer, text_encoder, unet)
-            if not train_judge:
+            if current_train.value == 0:
                 break
 
             # end of epoch
