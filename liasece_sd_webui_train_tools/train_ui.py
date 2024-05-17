@@ -61,7 +61,8 @@ def on_train_begin_click(id: str, project: str, version: str,
         preview_lora_multiplier: str, # like 0.6,0.7,0.8,0.9
     ):
 
-    train_network.train_judge = True
+    # train_network.train_judge = True
+    train_network.current_train.value = 1
     
     train_learning_rate = float(train_learning_rate)
     if train_unet_lr == "":
@@ -178,7 +179,7 @@ def on_train_begin_click(id: str, project: str, version: str,
 
     
     # generate preview
-    if train_finish_generate_all_checkpoint_preview and train_network.train_judge:
+    if train_finish_generate_all_checkpoint_preview and train_network.current_train.value == 1:
         return [None]+on_ui_preview_generate_all_preview_btn_click(id, project, version, train_name,
             preview_include_sub_img,
             preview_txt2img_prompt,
