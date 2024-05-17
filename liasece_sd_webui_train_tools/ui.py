@@ -292,7 +292,8 @@ def new_ui():
             return dataset_config_inputs() + train_config_inputs() + preview_config_inputs()
 
         def on_train_stop_click():
-            train_network.train_judge = False
+            # train_network.train_judge = False
+            train_network.current_train.value = 0
         # ====Footer====
         gr.Markdown(f"<center>version:{version} author: liasece </center>")
 
