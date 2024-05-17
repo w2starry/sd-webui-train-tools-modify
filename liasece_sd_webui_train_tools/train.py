@@ -30,7 +30,6 @@ except ModuleNotFoundError as error:
 
 def train(cfg: ArgStore) -> None:
     args = cfg.create_args()
-    train_network.train_judge = True
     with pc.PythonContextWarper(
             to_module_path= os.path.abspath(os.path.join(os.path.dirname(__file__), "sd_scripts")), 
             path_include= os.path.abspath(os.path.join(os.path.dirname(__file__), "..")), 
